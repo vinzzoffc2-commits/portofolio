@@ -1,0 +1,141 @@
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}
+html{scroll-behavior:smooth}
+:root{
+  --bg-color:#050508;
+  --card-bg:rgba(255,255,255,0.02);
+  --card-border:rgba(255,255,255,0.06);
+  --text-main:#ffffff;
+  --text-muted:#aaaaaa;
+  --cyan-glow:#00f5ff;
+  --purple-accent:#9d4edd;
+  --faded-purple:rgba(179,136,255,0.6);
+}
+body{background-color:var(--bg-color);color:var(--text-main);overflow-x:hidden}
+body.no-scroll{overflow:hidden!important;position:fixed!important;width:100%!important;touch-action:none!important}
+
+#bg-canvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none}
+
+/* ===== LOADER ===== */
+#loader-wrapper{
+  position:fixed;inset:0;
+  background:var(--bg-color);
+  display:flex;align-items:center;justify-content:center;
+  z-index:9999;
+  transition:opacity 0.4s ease;
+}
+#loader-wrapper.hide{opacity:0;pointer-events:none}
+
+.gegga{width:0;height:0;position:absolute}
+.snurra{filter:url(#gegga);transition:opacity 0.3s}
+.stopp1{stop-color:var(--purple-accent)}
+.stopp2{stop-color:var(--cyan-glow)}
+
+/* Dashed arcs — akan kita animasi nyatu */
+.halvan{
+  animation:Snurra1 10s infinite linear;
+  stroke-dasharray:180 800;fill:none;
+  stroke:url(#loader-gradient);stroke-width:23;stroke-linecap:round;
+}
+.strecken{
+  animation:Snurra1 3s infinite linear;
+  stroke-dasharray:26 54;fill:none;
+  stroke:url(#loader-gradient);stroke-width:23;stroke-linecap:round;
+}
+.skugga{filter:blur(5px);opacity:0.3;position:absolute;transform:translate(3px,3px)}
+@keyframes Snurra1{0%{stroke-dashoffset:0}100%{stroke-dashoffset:-403px}}
+
+/* ===== TRANSITION RING (fixed, pointer-events none) ===== */
+#t-ring{
+  position:fixed;
+  /* centered via JS */
+  z-index:10000;
+  pointer-events:none;
+  display:none;
+  transform:translate(-50%,-50%);
+}
+#t-ring svg{overflow:visible;display:block}
+
+/* ===== MAIN CONTENT ===== */
+#main-content{min-height:100vh}
+
+/* stagger reveal classes */
+.stagger{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease, transform 0.7s ease}
+.stagger.in{opacity:1;transform:translateY(0)}
+
+.reveal{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.175,0.885,0.32,1.275)}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* ===== HEADER ===== */
+header{
+  min-height:75vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:60px 20px 40px;
+}
+#profile-img{
+  width:140px;height:140px;border-radius:50%;object-fit:cover;
+  border:3px solid var(--cyan-glow);
+  box-shadow:0 0 20px rgba(0,245,255,0.3);
+  margin-bottom:20px;
+  opacity:0; /* shown after ring merges */
+}
+h1{font-size:2.8rem;color:var(--text-main);margin-bottom:5px;font-weight:700;letter-spacing:1px}
+.brand-name{color:var(--faded-purple);font-size:1.3rem;font-weight:600;letter-spacing:2px;margin-bottom:20px}
+.about-section{max-width:700px;margin:0 auto 30px auto;padding:0 20px}
+.about-text{color:var(--text-muted);font-size:1.1rem;line-height:1.7}
+.highlight{color:var(--cyan-glow);font-weight:600;text-shadow:0 0 10px rgba(0,245,255,0.2)}
+.contact-links{display:flex;justify-content:center;gap:15px;flex-wrap:wrap}
+.contact-btn{
+  display:flex;align-items:center;gap:10px;padding:10px 22px;
+  border-radius:50px;text-decoration:none;color:white;font-weight:600;
+  background:var(--card-bg);border:1px solid var(--card-border);
+  backdrop-filter:blur(5px);transition:all 0.3s ease;
+}
+.contact-btn:hover{transform:translateY(-5px);box-shadow:0 5px 15px var(--hover-glow);border-color:var(--hover-color);color:var(--hover-color)}
+.btn-wa{--hover-glow:rgba(37,211,102,0.2);--hover-color:#25D366}
+.btn-tele{--hover-glow:rgba(0,136,204,0.2);--hover-color:#0088cc}
+.btn-channel{--hover-glow:rgba(18,140,126,0.2);--hover-color:#128C7E}
+
+section{padding:60px 20px;text-align:center;max-width:1100px;margin:0 auto}
+section h2{font-size:2rem;margin-bottom:40px;position:relative;display:inline-block}
+section h2::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);width:40px;height:3px;background:var(--cyan-glow);box-shadow:0 0 10px var(--cyan-glow)}
+
+.friends-container{display:flex;justify-content:center;gap:25px;flex-wrap:wrap}
+.friend-card{
+  background:var(--card-bg);border:1px solid var(--card-border);
+  backdrop-filter:blur(3px);border-radius:20px;padding:25px;
+  width:310px;transition:all 0.4s ease;text-align:center;
+}
+.friend-card:hover{transform:translateY(-8px);border-color:var(--purple-accent);box-shadow:0 10px 25px rgba(157,78,221,0.15)}
+.friend-img{width:90px;height:90px;border-radius:50%;object-fit:cover;margin-bottom:15px;border:2px solid rgba(255,255,255,0.1)}
+.friend-card h3{font-size:1.3rem;margin-bottom:8px}
+.friend-desc{color:var(--text-muted);font-size:0.95rem;line-height:1.5}
+.friend-link{display:inline-block;margin-top:10px;color:var(--cyan-glow);text-decoration:none;font-weight:500;transition:opacity 0.2s}
+.friend-link:hover{text-decoration:underline;opacity:0.8}
+
+.skills-container{
+  display:grid!important;grid-template-columns:repeat(2,1fr)!important;
+  gap:12px!important;width:100%!important;max-width:480px!important;
+  margin:0 auto!important;padding:0 5px!important;
+}
+.skill-card{
+  background:var(--card-bg);border:1px solid var(--card-border);
+  backdrop-filter:blur(3px);padding:15px 5px!important;
+  border-radius:20px;width:100%!important;min-width:0!important;transition:all 0.4s ease;
+}
+.skill-card:hover{transform:translateY(-5px);border-color:var(--cyan-glow);box-shadow:0 8px 20px rgba(0,245,255,0.1)}
+.circular-progress{position:relative;width:95px!important;height:95px!important;margin:0 auto 12px auto}
+.circular-progress svg{width:100%;height:100%;transform:rotate(-90deg)}
+.circular-progress circle{fill:none;stroke-width:9;stroke-linecap:round}
+.circular-progress .bg{stroke:rgba(255,255,255,0.04)}
+.circular-progress .progress{stroke:var(--cyan-glow);filter:drop-shadow(0 0 6px var(--cyan-glow));stroke-dasharray:440;stroke-dashoffset:440;transition:stroke-dashoffset 2s cubic-bezier(0.4,0,0.2,1)}
+.percent-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:1.1rem!important;font-weight:700;color:var(--text-main)}
+.skill-name{font-size:0.9rem!important;font-weight:600;color:var(--text-muted);transition:color 0.3s}
+.skill-card:hover .skill-name{color:var(--text-main)}
+
+@media(min-width:768px){
+  .skills-container{display:flex!important;justify-content:center!important;gap:25px!important;max-width:1100px!important}
+  .skill-card{width:200px!important;padding:25px!important}
+  .circular-progress{width:120px!important;height:120px!important}
+  .percent-text{font-size:1.3rem!important}
+  .skill-name{font-size:1rem!important}
+}
