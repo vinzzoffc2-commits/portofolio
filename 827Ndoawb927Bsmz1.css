@@ -14,7 +14,9 @@ body{background-color:var(--bg-color);color:var(--text-main);overflow-x:hidden}
 body.no-scroll{overflow:hidden!important;position:fixed!important;width:100%!important;touch-action:none!important}
 
 #bg-canvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none}
-
+#profile-img{
+  transform: translateX(-6px);
+}
 /* ===== LOADER ===== */
 #loader-wrapper{
   position:fixed;inset:0;
