@@ -1,4 +1,3 @@
 User-agent: *
-Allow: /
 
 sitemap:https://profile.vinzz-offc.my.id/sitemap.xml
