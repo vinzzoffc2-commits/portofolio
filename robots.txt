@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://profile.vinzz-offc.my.id/sitemap.xml
+sitemap:https://profile.vinzz-offc.my.id/sitemap.xml
