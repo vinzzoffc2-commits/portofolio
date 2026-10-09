@@ -1,3 +1,4 @@
 User-agent: *
 
-sitemap:https://profile.vinzz-offc.my.id/sitemap.xml
+sitemap: https://profile.vinzz-offc.my.id/sitemap.xml
+sitemap: https://profile.vinzz-offc.my.id/sitemap_index.xml
